@@ -40,7 +40,7 @@ public class MyWindowGUI : EditorWindow
                 GameObject temp = GameObject.CreatePrimitive(PrimitiveType.Cube); //создаем примитивный объект
                 MeshRenderer GOrenderer = temp.GetComponent<MeshRenderer>(); //получаем компонент
                 GOrenderer.sharedMaterial = _newMat; //назначаем материал
-                temp.transform.position = new Vector3(_mainCam.position.x, _mainCam.position.y, _mainCam.position.z - 10);
+                temp.transform.position = new Vector3(_mainCam.position.x, _mainCam.position.y, _mainCam.position.z + 10);
                 GO = GOrenderer;
             }
 
