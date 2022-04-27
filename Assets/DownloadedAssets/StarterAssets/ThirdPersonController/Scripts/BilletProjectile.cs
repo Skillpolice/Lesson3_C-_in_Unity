@@ -4,16 +4,23 @@ using UnityEngine;
 
 public class BilletProjectile : MonoBehaviour
 {
+    enemy enemy;
+    Damageable damageable;
+
     [SerializeField] private Rigidbody _bulletRB;
 
     [Header("Bullet UI")]
     [SerializeField] private float _bulletSpeed = 100f;
+    [SerializeField] private float _bulletDamage = 15f;
+
     //[SerializeField] private Transform _vfxHitYes;
     //[SerializeField] private Transform _vfxHitNo;
 
     private void Awake()
     {
+        enemy = FindObjectOfType<enemy>();
         _bulletRB = GetComponent<Rigidbody>();
+        damageable = GetComponent<Damageable>();
     }
 
     private void Start()
@@ -25,7 +32,7 @@ public class BilletProjectile : MonoBehaviour
     {
         if (other.GetComponent<BulletTarget>() != null)
         {
-            //Instantiate(_vfxHitYes, transform.position, Quaternion.identity);
+            enemy.RecieveDamage(_bulletDamage);
         }
         else
         {
