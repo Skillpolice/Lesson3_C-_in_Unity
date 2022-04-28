@@ -30,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3455408586852999382}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 321.4867, y: 52.397438, z: 1.2000062}
+  m_LocalPosition: {x: 289.16006, y: 21.519611, z: 100.295006}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -130,7 +130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bulletRB: {fileID: 1217409248177676640}
   _bulletSpeed: 40
-  _bulletDamage: 20
+  _bulletDamage: 10
 --- !u!114 &2177887307085936089
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -2,14 +2,20 @@ using UnityEngine;
 
 public class IKAnimation : MonoBehaviour
 {
-    [SerializeField] private Animator _animator;
+    private Animator _animator;
 
+    [Header("Head Onj & Head Look")]
+    [SerializeField] private Transform _lookObj; //смотрим
 
-    [SerializeField] private Transform __handObj;
-    [SerializeField] private Transform __lookObj;
+    [Header("Zone UI")]
+    [SerializeField] private float _lookRadius = 4f;
+    private float _distanceToPlayer;
 
+    [Header("Hend's Obj & Hand's Weight ")]
+    [SerializeField] private Transform _rightHandObj; //т€немс€
+    [SerializeField] private Transform _leftHandObj; //т€немс€
     [SerializeField] private float _rightHandWeight;
-
+    [SerializeField] private float _leftHandWeight;
 
     [Header("Left Foot")]
     [SerializeField] private float _leftFootWeight;
@@ -48,32 +54,60 @@ public class IKAnimation : MonoBehaviour
             _leftFootRotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
         }
 
+        _distanceToPlayer = Vector3.Distance(transform.position, _lookObj.transform.position);
+
+        if (_distanceToPlayer > _lookRadius)
+        {
+            _animator.SetLookAtWeight(0.1f); //повотор головы
+        }
+        else
+        {
+            _animator.SetLookAtWeight(1f);
+        }
+
+
+        //Right hand
         _animator.SetIKPositionWeight(AvatarIKGoal.RightHand, _rightHandWeight); //обращаемс€ к руке (позици€ - поворот)
         _animator.SetIKRotationWeight(AvatarIKGoal.RightHand, _rightHandWeight);
 
+        //Left hand
+        _animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, _leftHandWeight); //обращаемс€ к руке (позици€ - поворот)
+        _animator.SetIKRotationWeight(AvatarIKGoal.LeftHand, _leftHandWeight);
+
+
+        //leftfoot
         _animator.SetIKPositionWeight(AvatarIKGoal.LeftFoot, _leftFootWeight); //обращаемс€ к Ќоге (позици€ - поворот)
         _animator.SetIKRotationWeight(AvatarIKGoal.LeftFoot, _leftFootWeight);
 
-        _animator.SetLookAtWeight(1); //повотор головы
 
         _animator.SetIKPosition(AvatarIKGoal.LeftFoot, _leftFootPosition);
         _animator.SetIKRotation(AvatarIKGoal.LeftFoot, _leftFootRotation);
 
 
         //ќбъект к которому т€немс€ и смотрим
-        if (__handObj)
+        if (_rightHandObj && _leftHandObj)
         {
-            _animator.SetIKPosition(AvatarIKGoal.RightHand, __handObj.position);
-            _animator.SetIKRotation(AvatarIKGoal.RightHand, __handObj.rotation);
+            //Right
+            _animator.SetIKPosition(AvatarIKGoal.RightHand, _rightHandObj.position);
+            _animator.SetIKRotation(AvatarIKGoal.RightHand, _rightHandObj.rotation);
+
+            //Left
+            _animator.SetIKPosition(AvatarIKGoal.LeftHand, _leftHandObj.position);
+            _animator.SetIKRotation(AvatarIKGoal.LeftHand, _leftHandObj.rotation);
         }
 
-        if (__lookObj)
+        if (_lookObj)
         {
-            _animator.SetLookAtPosition(__lookObj.position);
+            _animator.SetLookAtPosition(_lookObj.position);
         }
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, _lookRadius);
 
+    }
 
 
 
