@@ -1,12 +1,18 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class enemy : MonoBehaviour
 {
+    Damageable damageable;
+
     [Header("Enemy Config")]
-    [SerializeField] public float _enemyHealth = 100;
+    [SerializeField] private float _enemyHealth = 100f;
+
+    private void Start()
+    {
+         damageable = GetComponent<Damageable>();
+
+        damageable.OnRecieveDamage += RecieveDamage;
+    }
 
     public void RecieveDamage(float damage)
     {

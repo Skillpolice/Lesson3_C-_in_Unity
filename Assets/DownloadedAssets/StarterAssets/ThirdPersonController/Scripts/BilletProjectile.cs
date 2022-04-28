@@ -1,38 +1,39 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BilletProjectile : MonoBehaviour
 {
+    Damageable _damageable;
     enemy enemy;
-    Damageable damageable;
+    Regdoll _regdoll;
 
     [SerializeField] private Rigidbody _bulletRB;
 
     [Header("Bullet UI")]
     [SerializeField] private float _bulletSpeed = 100f;
-    [SerializeField] private float _bulletDamage = 15f;
+    [SerializeField] private float _bulletDamage = 10f;
 
     //[SerializeField] private Transform _vfxHitYes;
     //[SerializeField] private Transform _vfxHitNo;
 
     private void Awake()
     {
-        enemy = FindObjectOfType<enemy>();
         _bulletRB = GetComponent<Rigidbody>();
-        damageable = GetComponent<Damageable>();
     }
 
     private void Start()
     {
+        enemy = FindObjectOfType<enemy>();
+        _regdoll = FindObjectOfType<Regdoll>();
+
         _bulletRB.velocity = transform.forward * _bulletSpeed;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<BulletTarget>() != null)
+        _damageable = other.GetComponent<Damageable>();
+        if (_damageable != null)
         {
-            enemy.RecieveDamage(_bulletDamage);
+            _damageable.DoDamage(_bulletDamage);
         }
         else
         {
@@ -41,4 +42,5 @@ public class BilletProjectile : MonoBehaviour
 
         Destroy(gameObject);
     }
+
 }
