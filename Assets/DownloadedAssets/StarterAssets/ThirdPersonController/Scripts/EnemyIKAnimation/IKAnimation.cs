@@ -4,7 +4,7 @@ public class IKAnimation : MonoBehaviour
 {
     private Animator _animator;
 
-    [Header("Head Onj & Head Look")]
+    [Header("Head Obj & Head Look")]
     [SerializeField] private Transform _lookObj; //смотрим
 
     [Header("Zone UI")]
